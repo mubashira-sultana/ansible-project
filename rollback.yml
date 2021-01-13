@@ -1,0 +1,11 @@
+---
+
+- name: Rollback example
+  hosts: all
+  become: true
+  vars:
+          ansistrano_deploy_to: "/var/www/html"
+
+  roles:
+          - { role: ansistrano.rollback }
+

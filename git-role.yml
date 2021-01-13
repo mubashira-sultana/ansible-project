@@ -1,0 +1,8 @@
+---
+
+- name: git
+  hosts: all
+  become: true
+  roles:
+          - { role: helloWorld }
+

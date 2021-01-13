@@ -1,0 +1,24 @@
+---
+
+- hosts: demo
+  user : ansible
+  become: yes
+  connection: ssh
+  tasks:
+          - name: Upgrade all packages
+            yum:
+                    name: '*'
+                    state: latest
+
+          - name: Reboot system
+            command: shutdown -r now "Ansible triggered reboot"
+            async: 1
+            poll: 0
+            ignore_errors: true
+
+          - name: Run "wait_for" module to wait for 300 seconds for port 22 to become available
+            wait_for:
+                    port: 22
+                    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+                    search_regex: OpenSSH
+            connection: local

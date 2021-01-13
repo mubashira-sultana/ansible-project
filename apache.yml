@@ -1,0 +1,17 @@
+---
+
+- name: install apache2 for Debian flavour
+  apt: name=apache2 update_cache=yes state=latest
+  when: ansible_os_family=="Debian"
+
+- name: install httpd for Redhat flavour
+  yum: name=httpd state=latest
+  when: ansible_os_family=="Redhat"
+
+- name: restart apache2
+  service: name=apache2 state=restarted
+  when: ansible_os_family=="Debian"
+
+- name: restart httpd
+  service: name=httpd state=reloaded
+  when: ansible_os_family=="Redhat"

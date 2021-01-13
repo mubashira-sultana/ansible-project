@@ -1,0 +1,13 @@
+---
+# tasks file for helloWorld
+
+- name: Upgrade all packages
+  yum:
+          name: '*'
+          state: latest
+
+- name: reboot system
+  command: shutdown -r now "Ansible triggered reboot"
+  async: 1
+  poll: 0
+  ignore_errors: true
